@@ -1,26 +1,17 @@
-package cleanTest.todo.Ly;
+package cleanTest.testBaseWatcher;
 
 import io.qameta.allure.Attachment;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
-import pages.todo.Ly.*;
+//import pages.todo.Ly.*;
+import pages.todoist.AddProjectModal;
 import singletonSession.Session;
 import utils.GetProperties;
-import utils.TestAllureListeners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,44 +26,28 @@ public class TestBaseTodoLy implements TestWatcher, AfterTestExecutionCallback
 {
     private List<TestResultStatus> testResultsStatus = new ArrayList<>();
 
-    private int testStatus = 0;
-
-
     private enum TestResultStatus {
         SUCCESSFUL, ABORTED, FAILED, DISABLED;
     }
-
-    //////////
-    public MainPage mainPage = new MainPage();
-    public LoginModal loginModal = new LoginModal();
-    public MenuSection menuSection = new MenuSection();
-    public SettingsMenu settingsMenu = new SettingsMenu();
-
-    public SignUpModal signUpModal = new SignUpModal();
-    public  ProjectsList projectsList = new ProjectsList();
 
 
     @BeforeEach
     public void setup()
     {
-        // todo --> create properties file
         Session.getInstance().getBrowser().get(GetProperties.getInstance().getHost());
     }
 
     @AfterEach
     public void cleanup()
     {
-
-        //Session.getInstance().closeBrowser();
+        Session.getInstance().closeBrowser();
     }
     @Attachment(value = "screenshot",type = "image/png")
     private byte[] attach()
     {
-        //todo --> Ej1
         //toma screenshot
         return ((TakesScreenshot)Session.getInstance().getBrowser()).getScreenshotAs(OutputType.BYTES);
     }
-
 
     @Override
     public void testSuccessful(ExtensionContext context)
@@ -80,7 +55,6 @@ public class TestBaseTodoLy implements TestWatcher, AfterTestExecutionCallback
         System.out.println("Test "+context.getDisplayName()+" passed.");
         testResultsStatus.add(TestResultStatus.SUCCESSFUL);
 
-        Session.getInstance().closeBrowser();
     }
 
     @Override
@@ -96,14 +70,6 @@ public class TestBaseTodoLy implements TestWatcher, AfterTestExecutionCallback
         attach();
         testResultsStatus.add(TestResultStatus.FAILED);
 
-        Session.getInstance().closeBrowser();
-    }
-
-    @Override
-    public void afterTestExecution(ExtensionContext context) throws Exception
-    {
-        System.out.println("after exec call back " + testStatus);
-
     }
 
     public void afterAll(ExtensionContext context) throws Exception {
@@ -112,4 +78,15 @@ public class TestBaseTodoLy implements TestWatcher, AfterTestExecutionCallback
 
         LOG.info("Test result summary for {} {}");
     }
+
+        @Override
+        public void afterTestExecution(ExtensionContext context) throws Exception
+        {
+            Boolean testResult = context.getExecutionException().isPresent();
+            if (testResult)
+            {
+                attach();
+            }
+            System.out.println(testResult); //false - SUCCESS, true - FAILED
+        }
 }

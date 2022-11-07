@@ -1,7 +1,8 @@
 package cleanTest.todoist;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 public class Exercise2Test extends TestBaseTodoist

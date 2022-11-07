@@ -2,10 +2,7 @@ package singletonSession;
 
 import controlSelenium.Control;
 import factoryBrowser.FactoryBrowser;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import pages.yopmail.InboxIFrame;
 import utils.GetProperties;
 
 import java.util.ArrayList;
@@ -40,8 +37,8 @@ public class Session
         return browser;
     }
 
-    //alertas
-    //tabs /windows /iframes
+    //TODO --> tabs /windows /iframes/alerts
+
     //Implementation of iFrames
     public void switchIFrame(String iFrameId)
     {
@@ -57,32 +54,6 @@ public class Session
         getInstance().getBrowser().switchTo().defaultContent();
     }
 
-    public void fetchFromIFrame(Control asd, String IFrameId, InboxIFrame inboxIFrame,String email, int timeOut) throws InterruptedException
-    {
-        int i= 0;
-        do
-        {
-            //ME MUEVO AL IFRAME DEFAULT
-            getInstance().getBrowser().switchTo().defaultContent();
-            //Click al control ANTES DE moverme de IFrame
-            asd.click();
-            //ESPERO UN SEGUNDO ANTES DE MOVERME DE IFRAME
-            Thread.sleep(1000);
-            //ME MUEVO AL IFRAME PARA CORROBORAR
-            getInstance().getBrowser().switchTo().frame(IFrameId);
-            //SI SE CUMPLE LA CONDICION ENTRO
-            if(inboxIFrame.searchSubjectIntoEmail(email))
-            {
-                //VUELVO AL DEFAULT IFRAME Y ROMPO
-                getInstance().getBrowser().switchTo().defaultContent();
-                break;
-            }
-            //SI NO SE CUMPLE MUEVO LA I Y VUELVO A ITERAR
-            i++;
-
-        }while(i <= timeOut);
-
-    }
 
     public void moveToTab(String tabURL)
     {

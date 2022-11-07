@@ -2,7 +2,6 @@ package cleanTest.todoist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginTest extends TestBaseTodoist
 {

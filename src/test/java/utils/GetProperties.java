@@ -1,7 +1,5 @@
 package utils;
 
-import pages.yopmail.InboxIFrame;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
