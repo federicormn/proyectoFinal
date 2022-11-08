@@ -1,16 +1,22 @@
 package cleanTest.todoist;
 
 import cleanTest.testBaseWatcher.TestBaseTodoLy;
+import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import pages.todoist.*;
+import pages.todoist.settingsModal.AccountSettingsModal;
+import pages.todoist.settingsModal.SettingsMainModal;
 import singletonSession.Session;
+import utils.GenericMethods;
 import utils.GetProperties;
 
 import java.util.ArrayList;
@@ -21,8 +27,12 @@ import java.util.stream.Collectors;
 
 import static org.openqa.selenium.remote.http.DumpHttpExchangeFilter.LOG;
 
-public class TestBaseTodoist implements TestWatcher, AfterTestExecutionCallback
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
+
+@ExtendWith(TestResultExtension.class)
+public class TestBaseTodoist implements TestWatcher
 {
+    GenericMethods genericMethods = new GenericMethods();
     public MainPageTodoist mainPageTodoist = new MainPageTodoist();
     public LoginPage loginPage = new LoginPage();
     public HomePage homePage = new HomePage();
@@ -33,6 +43,13 @@ public class TestBaseTodoist implements TestWatcher, AfterTestExecutionCallback
     public DeleteProjectWindow deleteProjectWindow = new DeleteProjectWindow();
     public CenterMenu centerMenu = new CenterMenu();
     public EditItemModal editItemModal = new EditItemModal();
+    public SignUpPage signUpPage = new SignUpPage();
+    public CustomizationPage customizationPage = new CustomizationPage();
+    public OAuthLoginPage oAuthLoginPage = new OAuthLoginPage();
+    public ProfileSettingsMenu profileSettingsMenu = new ProfileSettingsMenu();
+    public SettingsMainModal settingsMainModal = new SettingsMainModal();
+    public AccountSettingsModal accountSettingsModal = new AccountSettingsModal();
+    public AccountDeletedPage accountDeletedPage = new AccountDeletedPage();
 
 
     private List<TestBaseTodoist.TestResultStatus> testResultsStatus = new ArrayList<>();
@@ -41,10 +58,16 @@ public class TestBaseTodoist implements TestWatcher, AfterTestExecutionCallback
         SUCCESSFUL, ABORTED, FAILED, DISABLED;
     }
 
-
-    @BeforeEach
-    public void setup()
-    {
+@BeforeEach
+    public void setup(){
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", GetProperties.getInstance().getBrowser())
+                        .put("URL", GetProperties.getInstance().getHost())
+                        .put("User", GetProperties.getInstance().getUser())
+                        .put("Pwd", GetProperties.getInstance().getPwd())
+                        .build(), System.getProperty("user.dir")
+                        + "/build/allure-results/");
         Session.getInstance().getBrowser().get(GetProperties.getInstance().getHost());
     }
 
@@ -52,12 +75,6 @@ public class TestBaseTodoist implements TestWatcher, AfterTestExecutionCallback
     public void cleanup()
     {
         Session.getInstance().closeBrowser();
-    }
-    @Attachment(value = "screenshot",type = "image/png")
-    private byte[] attach()
-    {
-        //toma screenshot
-        return ((TakesScreenshot)Session.getInstance().getBrowser()).getScreenshotAs(OutputType.BYTES);
     }
 
     @Override
@@ -78,7 +95,6 @@ public class TestBaseTodoist implements TestWatcher, AfterTestExecutionCallback
     public void testFailed(ExtensionContext context, Throwable cause)
     {
         LOG.info("Test" +context.getDisplayName()+" failed because: "+cause.getCause());
-        attach();
         testResultsStatus.add(TestBaseTodoist.TestResultStatus.FAILED);
 
     }
@@ -90,14 +106,4 @@ public class TestBaseTodoist implements TestWatcher, AfterTestExecutionCallback
         LOG.info("Test result summary for {} {}");
     }
 
-    @Override
-    public void afterTestExecution(ExtensionContext context) throws Exception
-    {
-        Boolean testResult = context.getExecutionException().isPresent();
-        if (testResult)
-        {
-            attach();
-        }
-        System.out.println(testResult); //false - SUCCESS, true - FAILED
-    }
 }
