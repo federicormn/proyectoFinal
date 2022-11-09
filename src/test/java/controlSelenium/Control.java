@@ -129,7 +129,7 @@ public class Control
 
     public void waitInvisvilityofElement()
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(this.locator));
     }
 

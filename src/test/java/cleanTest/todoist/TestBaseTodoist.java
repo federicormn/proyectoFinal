@@ -43,15 +43,19 @@ public class TestBaseTodoist implements TestWatcher
     public EditProjectModal editProjectModal = new EditProjectModal();
     public DeleteProjectWindow deleteProjectWindow = new DeleteProjectWindow();
     public CenterMenu centerMenu = new CenterMenu();
+    public MoreProjectActionsMenu moreProjectActionsMenu = new MoreProjectActionsMenu();
     public EditItemModal editItemModal = new EditItemModal();
     public SignUpPage signUpPage = new SignUpPage();
     public CustomizationPage customizationPage = new CustomizationPage();
     public OAuthLoginPage oAuthLoginPage = new OAuthLoginPage();
+    public ProductivityModal productivityModal = new ProductivityModal();
     public ProfileSettingsMenu profileSettingsMenu = new ProfileSettingsMenu();
     public SettingsMainModal settingsMainModal = new SettingsMainModal();
     public AccountSettingsModal accountSettingsModal = new AccountSettingsModal();
     public GeneralSettingsModal generalSettingsModal = new GeneralSettingsModal();
     public AccountDeletedPage accountDeletedPage = new AccountDeletedPage();
+
+    public CaducatedSessionPopUp caducatedSessionPopUp = new CaducatedSessionPopUp();
 
 
     private List<TestBaseTodoist.TestResultStatus> testResultsStatus = new ArrayList<>();

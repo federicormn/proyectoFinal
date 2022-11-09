@@ -20,8 +20,10 @@ public class AccountSettingsModal
 
     //Se utilizó este locator porque de otra manera no se logró identificar al elemento.
     public TextBox newPasswordTextBox = new TextBox(By.xpath("//form/div/div/div/div[2]/div/div/input"),"[New password] textbox on Change Password modal");
+    public TextBox newPasswordTextBox2 = new TextBox(By.xpath("//span[contains(text(),'New') or contains(text(),'Nueva')]/../../..//input"),"[New password] textbox on Change Password modal");
     public TextBox confirmNewPasswordTextBox = new TextBox(By.xpath("//*[@class=\"_5641699f f9408a0e\"][last()]//input[@autocomplete=\"new-password\"]"),"[Confirm new password] textbox on Change Password modal");
     public Button confirmChangePasswordButton = new Button(By.xpath("//button[@type=\"submit\"]/span"),"[Change password] button on Change Password modal");
+    public Label unknownErrorLabel = new Label(By.xpath("//div[@class=\"a83bd4e0 _8f5b5f2b f9408a0e\"]"));
     public Button deleteAccountButton = new Button(By.xpath("//a[@href=\"/app/settings/account/delete\"]//span"), "[Delete account] button on Account Settings modal");
 
     public TextBox todoistPasswordTextBox = new TextBox(By.xpath("//input[@name=\"password\"]"), "[Todoist password] textbox on Delete account modal");

@@ -83,6 +83,8 @@ public class AccountSettingsTests extends TestBaseTodoist
         settingsMainModal.updateButton.click();
         settingsMainModal.updateButton.waitInvisvilityofElement();
 
+        caducatedSessionPopUp.closePopUpIfCaducatedSession(); // IMPLEMENT IF-ELSE TO JUMP TO LOGIN PAGE
+
         settingsMainModal.closeModalButton.waitClickable();
         settingsMainModal.closeModalButton.click();
 
@@ -108,7 +110,8 @@ public class AccountSettingsTests extends TestBaseTodoist
     @Severity(SeverityLevel.CRITICAL)
     @Story("Account Deletion Story")
     @Tag("SmokeTest")
-    public void deleteAccountTest() throws InterruptedException {
+    public void deleteAccountTest()
+    {
         String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
         String testPassword = "todoistpassword123";
 

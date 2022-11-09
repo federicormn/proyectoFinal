@@ -23,6 +23,7 @@ public class ProjectsTests extends TestBaseTodoist
     public void createProjectTest()
     {
         String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
+        System.out.println(testEmail);
         String testPassword = "todoistpassword123";
         String randomProjectName = "Project "+genericMethods.getAlphaNumericString(5);
 
@@ -45,15 +46,15 @@ public class ProjectsTests extends TestBaseTodoist
 
         addProjectModal.projectNameTextBox.setText(randomProjectName);
         addProjectModal.addProjectButton.click();
+        addProjectModal.addProjectButton.waitInvisvilityofElement();
 
         int projectCounter2 = Integer.parseInt(leftSideMenu.projectList.getAttribute("childElementCount"));
         System.out.println("projects after: " + projectCounter2);
 
-        leftSideMenu.projectList.waitAttributeToBe("childElementCount", String.valueOf((projectCounter+1)));
-        leftSideMenu.lastProject.waitAttributeToBe("textContent", randomProjectName);
-        leftSideMenu.lastProject.waitTextToBePresent(randomProjectName);
+        leftSideMenu.projectList.waitAttributeToBe("childElementCount", String.valueOf((projectCounter2)));
+        leftSideMenu.searchLastMatchingProject(randomProjectName).waitClickable();
 
-        Assertions.assertEquals(randomProjectName, leftSideMenu.lastProject.getAttribute("textContent"), "Error, project was NOT created.");
+        Assertions.assertTrue( leftSideMenu.searchLastMatchingProject(randomProjectName).isControlDisplayed() && (projectCounter != projectCounter2), "Error, project was NOT created.");
     }
 
     @Test
@@ -282,6 +283,49 @@ public class ProjectsTests extends TestBaseTodoist
         projectActionsMenu.addToFavoritesButton.click();
 
         Assertions.assertTrue(leftSideMenu.searchLastMatchingFavorite(testProjectName).isControlDisplayed());
+    }
+
+    @Test
+    @DisplayName("Verify that a standard user can create a new section inside a created project.")
+    @Description("this test case is to verify that a standard user can create a new section and use it, inside an existing project.")
+    @Owner("Federico Roman")
+    @Epic("Projects Settings")
+    @Feature("New Section Creation")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Create New Section Story")
+    @Tag("SmokeTest")
+    public void createNewSectionTest() throws InterruptedException
+    {
+        String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
+        String testPassword = "todoistpassword123";
+        String testProjectName = "Project "+genericMethods.getAlphaNumericString(5);
+        String testSection = "Section " +genericMethods.getAlphaNumericString(5);
+
+        mainPageTodoist.startFroFreeButton.waitClickable();
+        mainPageTodoist.startFroFreeButton.click();
+
+        signUpPage.register(testEmail,testPassword);
+
+        customizationPage.skipButton.waitClickable();
+        customizationPage.skipButton.click();
+
+        //homePage.closeWelcomeModalButton.click();
+
+        homePage.addProjectButton.click();
+        addProjectModal.addProjectLabel.waitVisibilityOfElement();
+
+        addProjectModal.projectNameTextBox.setText(testProjectName);
+        addProjectModal.addProjectButton.click();
+
+        centerMenu.moreActionsButton.click();
+        moreProjectActionsMenu.addSectionButton.click();
+        centerMenu.newSectionNameTextBox.writeText(testSection);
+        centerMenu.addSectionConfirmationButton.click();
+
+        Assertions.assertTrue(centerMenu.getSectionByName(testSection).isControlDisplayed());
+
+        Thread.sleep(5000);
+
     }
 
 }
