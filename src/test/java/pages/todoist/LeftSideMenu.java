@@ -15,4 +15,10 @@ public class LeftSideMenu
     {
         return new Button(By.xpath("(//ul//li//span[text()='"+projectName+"'])[last()]"),"["+projectName+"] button on the Home page Left Side menu");
     }
+
+    public Button searchLastMatchingFavorite(String favoriteProjectToSearch)
+    {
+        return new Button(By.xpath("(//ul[contains(@aria-label,'Fav')]//span[text()='"+favoriteProjectToSearch+"'])[last()]"), "["+favoriteProjectToSearch+"] button on the Home page Left Side Favorites list");
+    }
 }
+

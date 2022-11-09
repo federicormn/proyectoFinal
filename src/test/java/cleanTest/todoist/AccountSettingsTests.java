@@ -81,17 +81,12 @@ public class AccountSettingsTests extends TestBaseTodoist
 
         settingsMainModal.updateButton.waitClickable();
         settingsMainModal.updateButton.click();
-        accountSettingsModal.changePasswordButton.waitClickable();
+        settingsMainModal.updateButton.waitInvisvilityofElement();
 
         settingsMainModal.closeModalButton.waitClickable();
         settingsMainModal.closeModalButton.click();
 
-        settingsMainModal.closeModalButton.waitInvisvilityofElement();
-
-
         homePage.profileSettingsButton.click();
-        profileSettingsMenu.logOutButton.hoverAction();
-        profileSettingsMenu.logOutButton.waitClickable();
         profileSettingsMenu.logOutButton.click();
 
         mainPageTodoist.logInButton.click();
@@ -99,6 +94,7 @@ public class AccountSettingsTests extends TestBaseTodoist
         loginPage.passwordTextBox.writeText(newPassowrd);
         loginPage.loginButton.click();
 
+        homePage.profileSettingsButton.click();
         Assertions.assertTrue(homePage.confirmMatchingEmail(testEmail));
 
     }
@@ -124,6 +120,9 @@ public class AccountSettingsTests extends TestBaseTodoist
 
         customizationPage.skipButton.waitClickable();
         customizationPage.skipButton.click();
+
+        //homePage.closeWelcomeWindowIfPresent();
+        homePage.closeWelcomeModalButton.click();
 
         homePage.profileSettingsButton.click();
         profileSettingsMenu.settingsButton.click();
@@ -163,7 +162,8 @@ public class AccountSettingsTests extends TestBaseTodoist
 
         customizationPage.skipButton.waitClickable();
         customizationPage.skipButton.click();
-        homePage.closeWelcomeWindowIfPresent();
+        //homePage.closeWelcomeWindowIfPresent();
+        homePage.closeWelcomeModalButton.click();
 
         homePage.profileSettingsButton.waitClickable();
         homePage.profileSettingsButton.click();

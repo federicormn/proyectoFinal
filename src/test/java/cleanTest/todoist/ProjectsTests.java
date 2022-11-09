@@ -57,7 +57,7 @@ public class ProjectsTests extends TestBaseTodoist
     }
 
     @Test
-    @DisplayName("Verify that a standard user can edit created a project.")
+    @DisplayName("Verify that a standard user can edit a created  project.")
     @Description("this test case is to verify that a standard user can edit an already created project successfully.")
     @Owner("Federico Roman")
     @Epic("Projects Settings")
@@ -106,7 +106,7 @@ public class ProjectsTests extends TestBaseTodoist
     }
 
     @Test
-    @DisplayName("Verify that a standard user can delete created a project.")
+    @DisplayName("Verify that a standard user can delete a created project.")
     @Description("this test case is to verify that a standard user can delete an already created project successfully.")
     @Owner("Federico Roman")
     @Epic("Projects Settings")
@@ -150,7 +150,7 @@ public class ProjectsTests extends TestBaseTodoist
     }
 
     @Test
-    @DisplayName("Verify that a standard user can archive created a project.")
+    @DisplayName("Verify that a standard user can archive a created project.")
     @Description("this test case is to verify that a standard user can archive an already created project successfully.")
     @Owner("Federico Roman")
     @Epic("Projects Settings")
@@ -158,7 +158,8 @@ public class ProjectsTests extends TestBaseTodoist
     @Severity(SeverityLevel.CRITICAL)
     @Story("Archive Project Story")
     @Tag("SmokeTest")
-    public void archiveProjectTest() throws InterruptedException {
+    public void archiveProjectTest()
+    {
         String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
         String testPassword = "todoistpassword123";
         String testProjectName = "Project "+genericMethods.getAlphaNumericString(5);
@@ -192,7 +193,95 @@ public class ProjectsTests extends TestBaseTodoist
         centerMenu.getLastArchivatedByName(testProjectName).waitClickable();
         Assertions.assertTrue(centerMenu.getLastArchivatedByName(testProjectName).isControlDisplayed());
 
-        Thread.sleep(5000);
+    }
+
+    @Test
+    @DisplayName("Verify that a standard user can unarchive a previously archived project.")
+    @Description("this test case is to verify that a standard user can unarchive an already created project successfully.")
+    @Owner("Federico Roman")
+    @Epic("Projects Settings")
+    @Feature("Unarchive Project")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Unarchive Project Story")
+    @Tag("SmokeTest")
+    public void unarchiveProjectTest()
+    {
+        String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
+        String testPassword = "todoistpassword123";
+        String testProjectName = "Project "+genericMethods.getAlphaNumericString(5);
+
+        mainPageTodoist.startFroFreeButton.waitClickable();
+        mainPageTodoist.startFroFreeButton.click();
+
+        signUpPage.register(testEmail,testPassword);
+
+        customizationPage.skipButton.waitClickable();
+        customizationPage.skipButton.click();
+
+        homePage.closeWelcomeModalButton.click();
+
+        homePage.addProjectButton.click();
+        addProjectModal.addProjectLabel.waitVisibilityOfElement();
+
+        addProjectModal.projectNameTextBox.setText(testProjectName);
+        addProjectModal.addProjectButton.click();
+
+        leftSideMenu.searchLastMatchingProject(testProjectName).waitClickable();
+        leftSideMenu.searchLastMatchingProject(testProjectName).makeRightClickAction();
+
+        projectActionsMenu.archiveProjectButton.click();
+        deleteProjectWindow.confirmArchiveButton.click();
+        leftSideMenu.searchLastMatchingProject(testProjectName).waitInvisvilityofElement();
+
+        leftSideMenu.projectsButton.click();
+        centerMenu.archivedButton.click();
+
+        centerMenu.getLastArchivatedByName(testProjectName).waitClickable();
+        centerMenu.getLastArchivatedByName(testProjectName).click();
+        centerMenu.unarchiveProjectButton.click();
+
+        leftSideMenu.searchLastMatchingProject(testProjectName).waitClickable();
+        Assertions.assertTrue(leftSideMenu.searchLastMatchingProject(testProjectName).isControlDisplayed());
+
+    }
+
+    @Test
+    @DisplayName("Verify that a standard user can mark a normal project as favorite.")
+    @Description("this test case is to verify that a standard user can mark a project as favorite and it is displayed on the Favorite Projects list.")
+    @Owner("Federico Roman")
+    @Epic("Projects Settings")
+    @Feature("Favorite Project")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Favorite Project Story")
+    @Tag("SmokeTest")
+    public void favoriteProjectTest()
+    {
+        String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
+        String testPassword = "todoistpassword123";
+        String testProjectName = "Project "+genericMethods.getAlphaNumericString(5);
+
+        mainPageTodoist.startFroFreeButton.waitClickable();
+        mainPageTodoist.startFroFreeButton.click();
+
+        signUpPage.register(testEmail,testPassword);
+
+        customizationPage.skipButton.waitClickable();
+        customizationPage.skipButton.click();
+
+        homePage.closeWelcomeModalButton.click();
+
+        homePage.addProjectButton.click();
+        addProjectModal.addProjectLabel.waitVisibilityOfElement();
+
+        addProjectModal.projectNameTextBox.setText(testProjectName);
+        addProjectModal.addProjectButton.click();
+
+        leftSideMenu.searchLastMatchingProject(testProjectName).waitClickable();
+        leftSideMenu.searchLastMatchingProject(testProjectName).makeRightClickAction();
+
+        projectActionsMenu.addToFavoritesButton.click();
+
+        Assertions.assertTrue(leftSideMenu.searchLastMatchingFavorite(testProjectName).isControlDisplayed());
     }
 
 }
