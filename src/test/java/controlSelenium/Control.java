@@ -42,6 +42,7 @@ public class Control
     public void click()
     {
         this.findControl();
+        this.step("Click on "+controlName);
         control.click();
     }
 
@@ -146,6 +147,7 @@ public class Control
     {
         this.findControl();
         Actions action = new Actions(Session.getInstance().getBrowser());
+        this.step("Right click on "+controlName);
         action.contextClick(this.control).perform();
     }
 
@@ -153,6 +155,7 @@ public class Control
     {
         this.findControl();
         Actions action = new Actions(Session.getInstance().getBrowser());
+        this.step("Hover over "+controlName);
         action.moveToElement(this.control).perform();
     }
 

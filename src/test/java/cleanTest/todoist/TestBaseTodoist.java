@@ -14,6 +14,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import pages.todoist.*;
 import pages.todoist.settingsModal.AccountSettingsModal;
+import pages.todoist.settingsModal.GeneralSettingsModal;
 import pages.todoist.settingsModal.SettingsMainModal;
 import singletonSession.Session;
 import utils.GenericMethods;
@@ -49,6 +50,7 @@ public class TestBaseTodoist implements TestWatcher
     public ProfileSettingsMenu profileSettingsMenu = new ProfileSettingsMenu();
     public SettingsMainModal settingsMainModal = new SettingsMainModal();
     public AccountSettingsModal accountSettingsModal = new AccountSettingsModal();
+    public GeneralSettingsModal generalSettingsModal = new GeneralSettingsModal();
     public AccountDeletedPage accountDeletedPage = new AccountDeletedPage();
 
 

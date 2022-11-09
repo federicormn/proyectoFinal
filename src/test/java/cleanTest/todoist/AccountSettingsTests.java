@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class AccountSettings extends TestBaseTodoist
+public class AccountSettingsTests extends TestBaseTodoist
 {
 
     @Test
@@ -55,8 +55,7 @@ public class AccountSettings extends TestBaseTodoist
     @Severity(SeverityLevel.CRITICAL)
     @Story("Account Settings Story")
     @Tag("SmokeTest")
-    public void changePasswordTest()
-    {
+    public void changePasswordTest() throws InterruptedException {
         String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
         String firstPassword = "todoistpassword123";
         String newPassowrd = "todoistpassword123" +genericMethods.getAlphaNumericString(3);
@@ -75,21 +74,24 @@ public class AccountSettings extends TestBaseTodoist
         profileSettingsMenu.settingsButton.click();
 
         accountSettingsModal.changePasswordButton.click();
+
         accountSettingsModal.currentPasswordTextBox.writeText(firstPassword);
-
-
-        accountSettingsModal.confirmNewPasswordTextBox.writeText(newPassowrd);
-        /////
-        accountSettingsModal.newPasswordTextBox.hoverAction();
-        accountSettingsModal.newPasswordTextBox.click();
-        accountSettingsModal.newPasswordTextBox.waitPresenceOfElement();
-        accountSettingsModal.newPasswordTextBox.waitVisibilityOfElement();
         accountSettingsModal.newPasswordTextBox.writeText(newPassowrd);
-        ///////
+        accountSettingsModal.confirmNewPasswordTextBox.writeText(newPassowrd);
+
+        settingsMainModal.updateButton.waitClickable();
         settingsMainModal.updateButton.click();
+        accountSettingsModal.changePasswordButton.waitClickable();
+
+        settingsMainModal.closeModalButton.waitClickable();
         settingsMainModal.closeModalButton.click();
 
+        settingsMainModal.closeModalButton.waitInvisvilityofElement();
+
+
         homePage.profileSettingsButton.click();
+        profileSettingsMenu.logOutButton.hoverAction();
+        profileSettingsMenu.logOutButton.waitClickable();
         profileSettingsMenu.logOutButton.click();
 
         mainPageTodoist.logInButton.click();
@@ -140,15 +142,57 @@ public class AccountSettings extends TestBaseTodoist
     }
 
     @Test
-    @DisplayName("Verify that a created account can be deleted")
-    @Description("this test case is to verify that created account can be deleted by the user successfully.")
+    @DisplayName("Verify that a standard user can change the current mail linked to the account.")
+    @Description("this test case is to verify that the current mail linked to an account can be modified successfully.")
     @Owner("Federico Roman")
     @Epic("Account Settings")
-    @Feature("Account delete")
+    @Feature("Email Change")
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Account Deletion Story")
+    @Story("Email Change Story")
     @Tag("SmokeTest")
     public void changeEmailTest()
+    {
+        String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
+        String newTestEmail = "UPDATE"+testEmail;
+        String testPassword = "todoistpassword123";
+
+        mainPageTodoist.startFroFreeButton.waitClickable();
+        mainPageTodoist.startFroFreeButton.click();
+
+        signUpPage.register(testEmail,testPassword);
+
+        customizationPage.skipButton.waitClickable();
+        customizationPage.skipButton.click();
+        homePage.closeWelcomeWindowIfPresent();
+
+        homePage.profileSettingsButton.waitClickable();
+        homePage.profileSettingsButton.click();
+        profileSettingsMenu.settingsButton.click();
+
+        accountSettingsModal.changeEmailButton.click();
+
+        accountSettingsModal.newEmailTextBox.writeText(newTestEmail);
+        accountSettingsModal.confirmNewEmailTextBox.writeText(newTestEmail);
+        accountSettingsModal.todoistPasswordForEmail.writeText(testPassword);
+
+        settingsMainModal.updateButton.waitClickable();
+        settingsMainModal.updateButton.click();
+
+        accountSettingsModal.currentEmailLabel.waitTextToBePresent(newTestEmail);
+        Assertions.assertEquals(accountSettingsModal.currentEmailLabel.getText(), newTestEmail);
+
+    }
+
+    @Test
+    @DisplayName("Verify that the language for the app can be changed.")
+    @Description("this test case is to verify that the language can be modified and gets applied at [Account Settings].")
+    @Owner("Federico Roman")
+    @Epic("Account Settings")
+    @Feature("Language Change")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Language Change Story")
+    @Tag("SmokeTest")
+    public void changeLanguageTest()
     {
         String testEmail = genericMethods.getAlphaNumericString(5) + "@mail.com";
         String testPassword = "todoistpassword123";
@@ -160,11 +204,30 @@ public class AccountSettings extends TestBaseTodoist
 
         customizationPage.skipButton.waitClickable();
         customizationPage.skipButton.click();
+        //homePage.closeWelcomeWindowIfPresent();
+        homePage.closeWelcomeModalButton.click();
 
+        homePage.profileSettingsButton.waitClickable();
         homePage.profileSettingsButton.click();
+
+        profileSettingsMenu.settingsButton.waitClickable();
         profileSettingsMenu.settingsButton.click();
 
-        accountSettingsModal.changeEmailButton.click();
+        settingsMainModal.settingsLeftHeader.waitVisibilityOfElement();
+        String firstSettingsHeader = settingsMainModal.settingsLeftHeader.getText();
+
+        settingsMainModal.generalButton.click();
+        generalSettingsModal.languageListBox.click();
+        generalSettingsModal.selectLanguage("en", "English").click();
+        settingsMainModal.updateButton.click();
+        settingsMainModal.updateButton.waitInvisvilityofElement();
+
+        settingsMainModal.settingsLeftHeader.waitTextToDissapear(firstSettingsHeader);
+        String changedSettingsHeader = settingsMainModal.settingsLeftHeader.getText();
+
+        Assertions.assertNotEquals(firstSettingsHeader, changedSettingsHeader);
 
     }
+
+
 }

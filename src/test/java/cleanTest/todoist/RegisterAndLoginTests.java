@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import utils.GetProperties;
 
-public class RegisterAndLogin extends TestBaseTodoist
+public class RegisterAndLoginTests extends TestBaseTodoist
 {
     @Test
     @DisplayName("Verify that a new account can be registered.")
@@ -104,9 +104,10 @@ public class RegisterAndLogin extends TestBaseTodoist
     @Severity(SeverityLevel.CRITICAL)
     @Story("OAuth Login Story")
     @Tag("SmokeTest")
-    public void logOutTest()
+    public void logOutTest() throws InterruptedException
     {
         mainPageTodoist.logInButton.click();
+        Thread.sleep(4000);
         loginPage.login(GetProperties.getInstance().getUser(), GetProperties.getInstance().getPwd());
 
         homePage.profileSettingsButton.click();
