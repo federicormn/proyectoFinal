@@ -22,8 +22,8 @@ public class EditItemModal
     public Button pickPriority3 = new Button(By.xpath("//span[@class=\"priority_picker_item_name\" and text()=\"Priority 3\"]"));
     public Button pickPriority4 = new Button(By.xpath("//span[@class=\"priority_picker_item_name\" and text()=\"Priority 4\"]"));
 
-    public Button moreActionsButton = new Button(By.xpath("//button[@aria-label=\"More actions\"]"));
-    public Button deleteTask = new Button(By.xpath("//*[contains(text(),\"Delete task\")]"));
+    public Button moreActionsButton = new Button(By.xpath("//div[@class=\"f9408a0e _6e9db9aa _6cad1a19\"]//button[@class=\"a8af2163 _98cd5c3f _352995bd ef4c88db f9408a0e\" and contains(@aria-label,'ac')]"),"[More Actions] button on [Edit Task] modal");
+    public Button deleteTask = new Button(By.xpath("(//div[@class=\"a83bd4e0 a8d37c6e f9408a0e\"])[last()]"),"[Delete Task] button inside [More Actions] button on [Edit Task] modal");
     public Button deleteConfirmationButton = new Button(By.xpath("//span[contains(text(),\"Delete\")]"));
     public Button closeModal = new Button(By.xpath("(//button[@class=\"a8af2163 _98cd5c3f _352995bd ef4c88db f9408a0e\"])[last()]"));
 

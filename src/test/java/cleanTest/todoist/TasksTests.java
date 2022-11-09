@@ -114,4 +114,58 @@ public class TasksTests extends TestBaseTodoist
         Assertions.assertNotEquals(firstDueDate, editedDueDate);
         Assertions.assertNotEquals(firstPriority,editedPriority);
     }
+
+    @Test
+    @DisplayName("Verify that a standard user can delete a task created inside an existing project.")
+    @Description("this test case is to verify that a standard user can delete a created task inside an existing project successfully.")
+    @Owner("Federico Roman")
+    @Epic("Tasks management")
+    @Feature("Task Deletion")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Delete a Task Story")
+    @Tag("SmokeTest")
+    public void deleteTask()
+    {
+        String taskDescription = "Description " + genericMethods.getAlphaNumericString(3);
+        String taskName = "Task name " + genericMethods.getAlphaNumericString(3);;
+
+        //LOGIN AND SELECT LAST CREATED PROJECT (EXISTING)
+        mainPageTodoist.logInButton.click();
+        loginPage.login(GetProperties.getInstance().getUser(), GetProperties.getInstance().getPwd());
+        leftSideMenu.lastProject.click();
+
+        //CREATE TASK
+        centerMenu.addTaskButton.waitClickable();
+        centerMenu.addTaskButton.click();
+
+        centerMenu.projectCreationMenu.waitPresenceOfElement();
+        centerMenu.projectCreationMenu.waitClickable();
+        centerMenu.projectCreationMenu.waitVisibilityOfElement();
+
+        centerMenu.taskNameTextBox.writeText(taskName);
+
+        centerMenu.taskDescriptionTextBox.writeText(taskDescription);
+
+        centerMenu.dueDateButton.click();
+        centerMenu.tomorrowDueDateButton.click();
+
+        centerMenu.setPriorityButton.click();
+
+        centerMenu.pickPriority("1").click();
+
+        centerMenu.addTaskConfirmationButton.waitClickable();
+        centerMenu.addTaskConfirmationButton.click();
+
+        //DELETING TASK
+        centerMenu.getLastTaskByName(taskName).click();
+        editItemModal.moreActionsButton.click();
+        editItemModal.deleteTask.click();
+        deleteProjectWindow.confirmDeleteButton.click();
+
+        centerMenu.getLastTaskByName(taskName).waitInvisvilityofElement();
+        Assertions.assertFalse(centerMenu.getLastTaskByName(taskName).isControlDisplayed());
+    }
+
+
+
 }
