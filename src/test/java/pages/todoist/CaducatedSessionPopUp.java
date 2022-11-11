@@ -10,7 +10,7 @@ public class CaducatedSessionPopUp
     public Control iFramePopUp = new Control(By.xpath("//iframe[@name=\"__privateStripeMetricsController1600\"]"), "[Caducated Session] Pop Up IFrame");
     public Button caducatedSessionOkButton = new Button(By.xpath("//a[@href=\"#\"]"),"[OK] button on Caducated Session Pop up");
 
-    public void closePopUpIfCaducatedSession()
+    public boolean closePopUpIfCaducatedSession()
     {
         if(iFramePopUp.isControlDisplayed())
         {
@@ -18,6 +18,10 @@ public class CaducatedSessionPopUp
             caducatedSessionOkButton.waitClickable();
             caducatedSessionOkButton.click();
             Session.getInstance().switchToDefault();
+            return true;
+        }else
+        {
+            return false;
         }
     }
 }

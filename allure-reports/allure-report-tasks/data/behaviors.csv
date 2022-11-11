@@ -1,0 +1,8 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"Tasks management","Sub-Task Creation","Create Sub-Task Story","0","0","1","0","0"
+"Tasks management","Complete Task","Complete Task Story","0","1","1","0","0"
+"Tasks management","Task Edition","Edit a Task Story","0","0","1","0","0"
+"Tasks management","Undo Completed Tasks","Undo multiple completed tasks Story","1","0","1","0","0"
+"Tasks management","Task Deletion","Delete a Task Story","0","0","1","0","0"
+"Tasks management","Comment Creation","Create comment Story","0","0","1","0","0"
+"Tasks management","Task Creation","Create a Task Story","0","0","1","0","0"

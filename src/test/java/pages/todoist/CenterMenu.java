@@ -14,25 +14,19 @@ public class CenterMenu
     public Button addSectionConfirmationButton = new Button(By.xpath("//button[@type=\"submit\"]"), "[Add section] button on Project main page");
     public Button unarchiveProjectButton = new Button(By.xpath("//span[@class=\"bbdb467b f9408a0e _31cf99c5 _473810b4\"]"), "[Unarchive project] button on Projects main menu (Center page)");
     public Button addTaskButton = new Button(By.xpath("//button[@class=\"plus_add_button\"]"));
-    public TextBox taskNameTextBox = new TextBox(By.xpath("//div[@class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"]"));
-    //public TextBox taskNameTextBox2 = new TextBox(By.xpath("//div[@class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"]"));
-    public TextBox taskDescriptionTextBox = new TextBox(By.xpath("//textarea[@class=\"task_editor__description_field no-focus-marker\"]"));
-    public Button dueDateButton = new Button(By.xpath("//span[@class=\"item_due_selector_text\"]"));
+    public TextBox taskNameTextBox = new TextBox(By.xpath("//div[@class=\"public-DraftStyleDefault-block public-DraftStyleDefault-ltr\"]"),"[Task name] textbox on Projects main menu (Center page)");
+    public TextBox taskDescriptionTextBox = new TextBox(By.xpath("//textarea[@class=\"task_editor__description_field no-focus-marker\"]"), "[Task description] textbox on Projects main menu (Center page)");
+    public Button dueDateButton = new Button(By.xpath("//span[@class=\"item_due_selector_text\"]"), "[Due date] button on Projects main menu (Center page)");
     /////////////// TAKE TO A SEPARATED PAGE CLASS
-    public Button tomorrowDueDateButton = new Button(By.xpath("//button[@data-track=\"scheduler|date_shortcut_tomorrow\"]//div[@class=\"scheduler-suggestions-item-label\"]"));
-    public Button thisWeekendDueDateButton = new Button(By.xpath("//button[@data-track=\"scheduler|date_shortcut_thisweekend\"]//div[@class=\"scheduler-suggestions-item-label\"]"));
-    public Button nextWeekDueDateButton = new Button(By.xpath("//button[@data-track=\"scheduler|date_shortcut_nextweek\"]//div[@class=\"scheduler-suggestions-item-label\"]"));
+    public Button tomorrowDueDateButton = new Button(By.xpath("//button[@data-track=\"scheduler|date_shortcut_tomorrow\"]//div[@class=\"scheduler-suggestions-item-label\"]"), "[Tomorrow] option on Calendar modal - Projects main menu (Center page)");
+    public Button thisWeekendDueDateButton = new Button(By.xpath("//button[@data-track=\"scheduler|date_shortcut_thisweekend\"]//div[@class=\"scheduler-suggestions-item-label\"]"), "[This weekend] option on Calendar modal - Projects main menu (Center page)");
+    public Button nextWeekDueDateButton = new Button(By.xpath("//button[@data-track=\"scheduler|date_shortcut_nextweek\"]//div[@class=\"scheduler-suggestions-item-label\"]"), "[Next week] option on Calendar modal - Projects main menu (Center page)");
     ///////////////
-    public Button setPriorityButton = new Button(By.xpath("//button[@data-priority]/span"));
+    public Button setPriorityButton = new Button(By.xpath("//button[@data-priority]/span"), "[Set the priority] button on Projects main menu (Center page)");
 
-    public Button pickPriority1 = new Button(By.xpath("//span[@class=\"priority_picker_item_name\" and contains(text(),'1')]"));
-    public Button pickPriority2 = new Button(By.xpath("//span[@class=\"priority_picker_item_name\" and contains(text(),'2')]"));
-    public Button pickPriority3 = new Button(By.xpath("//span[@class=\"priority_picker_item_name\" and contains(text(),'3')]"));
-    public Button pickPriority4 = new Button(By.xpath("//span[@class=\"priority_picker_item_name\" and contains(text(),'4')]"));
+    public Button addTaskConfirmationButton = new Button(By.xpath("//button[@data-testid=\"task-editor-submit-button\"]"), "[Add task] confirmation button on Projects main menu (Center page)");
 
-    public Button addTaskConfirmationButton = new Button(By.xpath("//button[@data-testid=\"task-editor-submit-button\"]"));
-
-    public Label projectCreationMenu = new Label(By.xpath("//li[@class=\"manager indent_1\"]"));
+    public Label projectCreationMenu = new Label(By.xpath("//li[@class=\"manager indent_1\"]") , "[Task creation area] on Projects main menu (Center page)");
 
     public Button loadMoreElementsButton = new Button(By.xpath("//button[@class=\"load_more\"]"),"[Load more] button on Completed Tasks page");
 
@@ -41,7 +35,7 @@ public class CenterMenu
 
     public Button getLastTaskByName(String taskName)
     {
-        Button selectedTask = new Button(By.xpath("(//ul[@class='items']//li//div[text()='"+taskName+"'])[last()]"));
+        Button selectedTask = new Button(By.xpath("(//ul[@class='items']//li//div[text()='"+taskName+"'])[last()]"), "["+taskName+"] button on Projects main menu (Center page)");
 
         return selectedTask;
     }
@@ -53,7 +47,7 @@ public class CenterMenu
 
     public Button getLastArchivatedByName(String archivatedProjectName)
     {
-        return new Button(By.xpath("(//div[@class=\"a83bd4e0 e214ff2e f9408a0e\" and text()='"+archivatedProjectName+"'])[last()]"));
+        return new Button(By.xpath("(//div[@class=\"a83bd4e0 e214ff2e f9408a0e\" and text()='"+archivatedProjectName+"'])[last()]"), "["+archivatedProjectName+"] button on Archivated Projects menu (Center page)");
     }
 
     public Button getSectionByName(String sectionName)
@@ -68,6 +62,6 @@ public class CenterMenu
 
     public Button getCompletedTaskByName(String completedTaskName)
     {
-        return new Button(By.xpath("(//a[contains(@href,'task')]/div[text()='"+completedTaskName+"'])[last()]"), "[]");
+        return new Button(By.xpath("(//a[contains(@href,'task')]/div[text()='"+completedTaskName+"'])[last()]"), "["+completedTaskName+"] completed task on Activity List (Center Page)");
     }
 }

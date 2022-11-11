@@ -16,6 +16,8 @@ public class Control
     protected WebElement control;
     protected String controlName; // reflection
 
+    protected WebDriverWait waitInstance = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+
     public Control(By locator)
     {
         this.locator = locator;
@@ -74,9 +76,9 @@ public class Control
 
     public void waitClickable()
     {
-        // todo --> factory para instanciar el wait una sola vez
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(this.locator));
+        // todo --> Session para instanciar el wait una sola vez
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.elementToBeClickable(this.locator));
     }
 
     public void waitControl(By locator, int timeOut) throws InterruptedException {
@@ -93,44 +95,44 @@ public class Control
 
     public void waitPresenceOfElement()
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(this.locator));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.presenceOfElementLocated(this.locator));
     }
 
     public void waitTextToBePresent(String value)
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(this.locator, value));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.textToBePresentInElementLocated(this.locator, value));
     }
 
     public void waitTextToDissapear(String value)
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElementLocated(this.locator, value)));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElementLocated(this.locator, value)));
     }
 
     public void waitAttributeToBe(String attribute, String value)
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.attributeToBe(this.locator, attribute, value));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.attributeToBe(this.locator, attribute, value));
     }
 
     public void waitAttributeNotToBe(String attribute, String value)
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.not(ExpectedConditions.attributeToBe(this.locator, attribute, value)));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.not(ExpectedConditions.attributeToBe(this.locator, attribute, value)));
     }
 
     public void waitVisibilityOfElement()
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(10));
+        waitInstance.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
     }
 
     public void waitInvisvilityofElement()
     {
-        WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(this.locator));
+        //WebDriverWait wait = new WebDriverWait(Session.getInstance().getBrowser(), Duration.ofSeconds(5));
+        waitInstance.until(ExpectedConditions.invisibilityOfElementLocated(this.locator));
     }
 
     public void clickAndWaitResponse(boolean condition) throws InterruptedException {

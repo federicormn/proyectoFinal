@@ -98,6 +98,11 @@ public class Session
         browser.close();
         browser.switchTo().window(currentTab);
     }
+
+    public void refreshPage()
+    {
+        browser.navigate().refresh();
+    }
 }
 
 

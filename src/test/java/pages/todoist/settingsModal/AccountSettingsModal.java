@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 
 public class AccountSettingsModal
 {
-    public TextBox nameTextBox = new TextBox(By.id("element-0"), "[Name] textbox on Account Settings modal");
+    public TextBox nameTextBox = new TextBox(By.xpath("//input[@name='name']"), "[Name] textbox on Account Settings modal");
     public Label currentEmailLabel = new Label(By.xpath("//div[@class=\"a83bd4e0 f9408a0e\"]"),"[Email] label on Account Settings modal");
     public Button changeEmailButton = new Button(By.xpath("//a[@href=\"/app/settings/account/email\"]/span"),"[Change email] button on Account Settings modal");
     public TextBox newEmailTextBox = new TextBox(By.xpath("//div[@class=\"_5641699f f9408a0e\"]/following-sibling::div//input[@type=\"email\"]/parent::div/parent::div/parent::div/preceding-sibling::div[@class=\"_5641699f f9408a0e\"]//input"), "[New email] textbox on Change email modal");

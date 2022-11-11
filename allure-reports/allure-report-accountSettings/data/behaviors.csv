@@ -1,0 +1,6 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"Account Settings","Email Change","Email Change Story","0","0","1","0","0"
+"Account Settings","Name Change","Account Settings Story","0","0","1","0","0"
+"Account Settings","Password Change","Account Settings Story","0","1","0","0","0"
+"Account Settings","Language Change","Language Change Story","0","0","1","0","0"
+"Account Settings","Account delete","Account Deletion Story","0","1","0","0","0"

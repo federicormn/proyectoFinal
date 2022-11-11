@@ -1,6 +1,5 @@
 package cleanTest.todoist;
 
-import cleanTest.testBaseWatcher.TestBaseTodoLy;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
 import org.checkerframework.checker.units.qual.C;
@@ -33,7 +32,7 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 @ExtendWith(TestResultExtension.class)
 public class TestBaseTodoist implements TestWatcher
 {
-    GenericMethods genericMethods = new GenericMethods();
+    public GenericMethods genericMethods = new GenericMethods();
     public MainPageTodoist mainPageTodoist = new MainPageTodoist();
     public LoginPage loginPage = new LoginPage();
     public HomePage homePage = new HomePage();
